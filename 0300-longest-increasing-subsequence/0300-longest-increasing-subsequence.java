@@ -20,5 +20,7 @@ class Solution {
         System.out.println(Arrays.toString(LIS));
         return Arrays.stream(LIS).max().getAsInt();
         
+        
+        // O(n^2)
     }
 }
