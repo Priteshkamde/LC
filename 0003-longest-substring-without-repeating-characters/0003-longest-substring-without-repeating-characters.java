@@ -1,8 +1,6 @@
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        
-
-        
+    
         HashSet hs = new HashSet();
         
         int a_pointer = 0;
