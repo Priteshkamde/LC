@@ -1,35 +1,31 @@
+
 class Solution {
     
     long resolveIt(long a, long b, char op) {
-        if(op == '+') return a+b;
-        if(op == '-') return b-a;
-        if(op == '*') return a*b;
-        return b/a;
+        switch(op) {
+            case '+': return a + b;
+            case '-': return a - b;
+            case '*': return a * b;
+            case '/': return a / b;
+            default: throw new IllegalArgumentException("Invalid operator");
+        }
     }
     
     public int evalRPN(String[] tokens) {
         
-        Stack<Long> stack = new Stack<Long>();
+        Stack<Long> stack = new Stack<>();
         
-        int N = tokens.length;
-        for(int i = 0 ; i < N ; i ++) {
-            
-            if(tokens[i].length() == 1 && tokens[i].charAt(0) < 48) // evaluate 
-            {
+        for (String token : tokens) {
+            if (token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/")) {
                 long a = stack.pop();
                 long b = stack.pop();
-                long res = resolveIt(a, b, tokens[i].charAt(0));
+                long res = resolveIt(b, a, token.charAt(0)); // b op a
                 stack.push(res);
+            } else {
+                stack.push(Long.parseLong(token));
             }
-            else {
-                stack.push(Long.parseLong(tokens[i]));
-            }
-            
         }
         
-        
         return stack.pop().intValue();
-        
-        
     }
 }
