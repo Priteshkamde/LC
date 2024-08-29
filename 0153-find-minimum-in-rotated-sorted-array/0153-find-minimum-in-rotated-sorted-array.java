@@ -7,7 +7,9 @@ class Solution {
         int high = nums.length -1;
         int sol = Integer.MAX_VALUE;
         
+        // best case - no rotation
         if(nums[low] < nums[high]) return nums[low];
+        
         
         while(low <= high) {
              
