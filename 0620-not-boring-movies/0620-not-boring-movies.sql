@@ -3,5 +3,5 @@
 
 
 select id, movie, description, rating from cinema
-where mod(id,2) != 0 and description not like 'boring'
+where mod(id,2) <> 0 and description <> 'boring'
 order by rating desc;
