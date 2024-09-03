@@ -18,6 +18,6 @@
 WITH CTE AS
 			(SELECT Salary, DENSE_RANK () OVER (ORDER BY Salary desc) AS RANK_desc
 			   FROM Employee)
-SELECT MAX(salary) AS SecondHighestSalary
+SELECT max(salary) AS SecondHighestSalary
   FROM CTE
  WHERE RANK_desc = 2
