@@ -5,4 +5,4 @@ With cte as (
 )
 Select round(sum(case when diff = 1 then 1 else 0 end) /count(distinct player_id),2
 ) as fraction
-from cte;
+from cte;   
