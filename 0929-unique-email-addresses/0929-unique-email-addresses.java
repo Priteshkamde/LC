@@ -9,7 +9,7 @@ class Solution {
             String local_name_split[] = local_name.split("\\+");
             set.add(local_name_split[0]+"@"+email_split[1]);
         }
-        System.out.println(set);
+        //System.out.println(set);
         return set.size();
     }
 }
