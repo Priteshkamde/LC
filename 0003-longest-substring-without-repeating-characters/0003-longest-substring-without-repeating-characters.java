@@ -12,6 +12,7 @@ class Solution {
                 hs.add(s.charAt(b_pointer));
                 b_pointer++;
                 max = Math.max(max, hs.size());
+                // find max
             }
             else {
                 hs.remove(s.charAt(a_pointer));
