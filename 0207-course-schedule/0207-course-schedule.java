@@ -1,50 +1,52 @@
 class Solution {
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
 
-        // Use adjacency list to form a graph
+    private boolean dfs(int node, int[] visited, int[] recStack, ArrayList<ArrayList<Integer>> adj) {
+        visited[node] = 1;  // Mark node as visited
+        recStack[node] = 1; // Add to recursion stack
+
+        for (int neighbor : adj.get(node)) {
+            if (visited[neighbor] == 0) { 
+                // If not visited, continue DFS
+                if (dfs(neighbor, visited, recStack, adj)) {
+                    return true; // Cycle found
+                }
+            } else if (recStack[neighbor] == 1) {
+                // If neighbor is in recStack, a cycle exists
+                return true;
+            }
+        }
+
+        recStack[node] = 0; // Remove from recursion stack
+        return false;       // No cycle found
+    }
+
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        int N = numCourses;
+
+        // Adjacency list
         ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
         for (int i = 0; i < numCourses; i++) {
-            // Initialize empty lists for each course
             adj.add(new ArrayList<>());
         }
 
-        // Build the adjacency list (b -> a means to take course a, you must take course b first)
+        // Build the adjacency list
         for (int[] pair : prerequisites) {
             adj.get(pair[1]).add(pair[0]);
         }
 
-        // Create an indegree array with size equal to numCourses
-        int indegree[] = new int[numCourses];
-        for (int i = 0; i < numCourses; i++) {
-            for (int node : adj.get(i)) {
-                indegree[node]++;
-            }
-        }
+        // Visited and recursion stack arrays
+        int[] visited = new int[N];
+        int[] recStack = new int[N];
 
-        // Queue to hold courses with no prerequisites
-        Queue<Integer> q = new LinkedList<>();
-        for (int i = 0; i < numCourses; i++) {
-            if (indegree[i] == 0) {
-                q.add(i);
-            }
-        }
-
-        List<Integer> toposort = new ArrayList<>();
-
-        // Process the queue
-        while (!q.isEmpty()) {
-            int node = q.poll();
-            toposort.add(node);
-
-            for (int neighbor : adj.get(node)) {
-                indegree[neighbor]--;
-                if (indegree[neighbor] == 0) {
-                    q.add(neighbor);
+        // Perform DFS for every unvisited node
+        for (int i = 0; i < N; i++) {
+            if (visited[i] == 0) {
+                if (dfs(i, visited, recStack, adj)) {
+                    return false; // Cycle detected, cannot finish all courses
                 }
             }
         }
 
-        // If toposort contains all courses, then we can finish all courses
-        return toposort.size() == numCourses;
+        return true; // No cycles detected, all courses can be finished
     }
 }
