@@ -10,14 +10,14 @@ class Solution {
         
         // iterate
         for(int[] course : courses){
-            if(course[0] <= course[1]) {
+           
                 // see if course can be completed within its last day
                 if(course[0] + currTime <= course[1]) {
                     pq.offer(course[0]);
                     currTime += course[0];
                 } else {
             // check if to swap the biggest duration in our queue can be replaced by the new one
-                    if(course[0] < pq.peek()) {
+                    if(pq.size() > 0 && course[0] < pq.peek()) {
                         // remove the old biggest duration
                         currTime -= pq.poll();
                         // update time with the new biggest duration
@@ -25,7 +25,7 @@ class Solution {
                         // add the new course to priority qqueue
                         pq.offer(course[0]);
                     }
-                }
+                
             }
         }
         
