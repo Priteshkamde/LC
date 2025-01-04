@@ -1,31 +1,36 @@
 class Solution {
     public int maxAreaOfIsland(int[][] grid) {
         
-    int maxRes = 0;
-
+        int max = 0; 
+        
         for(int i = 0 ; i < grid.length ; i++) {
             for(int j = 0 ; j < grid[0].length ; j++) {
-                maxRes = Math.max( maxArea(i,j, grid), maxRes);
+             
+                max = Math.max(max, dfs(grid, i, j));
+                
             }
         }
-
-        return maxRes;
-    }
-
-    public int maxArea(int row, int col, int[][] grid){
-
-        // check boundary
-        // mark land as water
-        if(row < 0 || row >= grid.length || col < 0 || col >= grid[row].length 
-        || grid[row][col] == 0) return 0;
-
-        grid[row][col] = 0;
         
-        return ( 1 + 
-        maxArea(row+1, col, grid) +
-        maxArea(row-1, col, grid) +
-        maxArea(row, col+1, grid) +
-        maxArea(row, col-1, grid)
-        );
+        return max;
+        
     }
+    
+    
+    public int dfs(int grid[][], int row, int col){
+        
+        if(row < 0 || row >= grid.length 
+          || col < 0 || col >= grid[row].length || grid[row][col]==0 ) {
+            return 0;
+        }
+        
+        grid[row][col] =0;
+        int count = 1;
+        count += dfs(grid, row+1, col);
+        count += dfs(grid, row-1, col);
+        count += dfs(grid, row, col+1);
+        count += dfs(grid, row, col-1);
+
+        return count;
+    }
+    
 }
