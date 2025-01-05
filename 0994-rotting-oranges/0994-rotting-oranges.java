@@ -55,7 +55,6 @@ class Solution {
             }
         }
 
-        if(count != countFresh) return -1;
-        return maxTime;
+        return (count != countFresh) ?  -1 : maxTime ;
     }
 }
