@@ -1,37 +1,40 @@
 class Solution {
     public int numIslands(char[][] grid) {
         
-        
-        int islands = 0;
-        
-        // edge case
-        if(grid.length == 0 || grid == null) return 0;
-        
-        
-        // iterate thru the matrix
-        for(int i = 0 ; i < grid.length ; i++) {
-            for(int j = 0 ; j < grid[i].length ; j++) {
-                // 1 is island found, only then perform bfs
-                if(grid[i][j] == '1') {
-                    islands+=1;
-                    callBFS(grid, i , j);
+        int total = 0;
+        int rows = grid.length; 
+        int cols = grid[0].length; 
+
+        for(int r = 0 ; r < rows ; r++){
+            for(int c = 0 ; c < cols ; c++){
+                if(grid[r][c] == '1'){
+                    total += 1;
+                    callBFS(r,c,grid,rows, cols);
+                }
+            }
+        }   
+        return total;
+    }
+    public void callBFS(int r, int c, char[][] grid, int rows, int cols){
+        Queue<int[]> q = new LinkedList<>();
+        q.add(new int[]{r,c});
+        grid[r][c] = 0 ;
+
+        int[][] directions = {{1,0},{-1,0},{0,1},{0,-1}};
+
+        while(!q.isEmpty()){
+            int[] point = q.poll();
+            int row = point[0], col = point[1];
+
+            for(int[] dir : directions) {
+                int newRow = row + dir[0];
+                int newCol = col + dir[1];
+                if(newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols 
+                && grid[newRow][newCol] == '1') {
+                    q.add(new int[]{newRow, newCol});
+                    grid[newRow][newCol] = '0';
                 }
             }
         }
-        
-        return islands;
-    }
-    
-    public void callBFS(char[][] grid, int i , int j){
-        
-        // base case
-        if( i < 0 || i >= grid.length || j < 0 || j >= grid[i].length || grid[i][j] == '0')
-        return ;
-        
-        grid[i][j] = '0';
-        callBFS(grid, i+1 , j); // right
-        callBFS(grid, i-1 , j); // left
-        callBFS(grid, i , j+1); // below
-        callBFS(grid, i , j-1); // above
     }
 }
