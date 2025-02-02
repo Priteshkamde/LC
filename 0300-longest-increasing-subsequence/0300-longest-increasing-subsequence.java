@@ -1,19 +1,26 @@
 class Solution {
     public int lengthOfLIS(int[] nums) {
+        
+    // using DP to keep a track
+    // we cannot have a increasing subseq 
+    // if the element X has a lower value then x+1..n
+    // DP array will keep a track starting from the end index
+    // reverse loop
+    
         int N = nums.length;
-        int[] dp = new int[N];
-
-        Arrays.fill(dp, 1); // since each number is itlself a subseq
-
-        // i pointer which is ahead
-        for(int i = 1 ; i < N ; i++){
-            // j pointer which catches up with i
-            for(int j = 0 ; j < i ; j++) {
-                if(nums[j] < nums[i]) // increasing sequence found
-                    dp[i] = Math.max(dp[i], dp[j] + 1);
-            }
-        }
-
-        return Arrays.stream(dp).max().getAsInt();
+        int LIS[] = new int[N];
+        Arrays.fill(LIS, 1); //default is 1 since the number itself is a minimum seq
+          
+        LIS[N-1] = 1;
+        for (int i = N-1 ; i >= 0 ; i--)
+            for(int curr = i+1; curr < N ; curr++)
+                if(nums[i]<nums[curr])
+                    LIS[i] = Math.max(LIS[i],1+LIS[curr]);
+        
+        System.out.println(Arrays.toString(LIS));
+        return Arrays.stream(LIS).max().getAsInt();
+        
+        
+        // O(n^2)
     }
 }
