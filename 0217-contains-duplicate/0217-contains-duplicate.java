@@ -4,10 +4,8 @@ class Solution {
         Set<Integer> set = new HashSet();
 
         for(int x : nums) 
-            if(set.contains(x))
+            if(!set.add(x))
                 return true;
-            else 
-                set.add(x);
 
         return false;
         
