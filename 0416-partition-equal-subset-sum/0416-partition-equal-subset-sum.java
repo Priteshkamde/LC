@@ -9,6 +9,8 @@ class Solution {
         return helperSum(nums, index, sum/2);
     }
 
+    Map<String, Boolean> map = new HashMap();
+
     private boolean helperSum(int[] nums, int index, int currSum) {
 
         if(currSum == 0) 
@@ -18,7 +20,13 @@ class Solution {
         if(index >= nums.length)
             return false;
 
-        return helperSum(nums, index+1, currSum - nums[index]) || 
-        helperSum(nums, index+1, currSum);
+        String key = currSum + "-" + index;
+
+        if(!map.containsKey(key)) 
+        map.put(key, 
+        helperSum(nums, index+1, currSum - nums[index]) || 
+        helperSum(nums, index+1, currSum));
+
+        return map.get(key);
     }
 }
