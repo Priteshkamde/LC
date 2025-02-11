@@ -1,44 +1,48 @@
+import java.util.*;
+
 class Solution {
     public List<List<Integer>> fourSum(int[] nums, int target) {
-
+        List<List<Integer>> result = new ArrayList<>();
         int N = nums.length;
-        List<List<Integer>> res = new LinkedList<>();
-        if(N <= 3) return res;
+        if (N < 4) return result;
 
-        Arrays.sort(nums);
-        for(int i = 0 ; i < N ; i++) {
-            for(int j= i+1 ; j < N; j++) {
+        Arrays.sort(nums); // sort
 
-                int a = nums[i]; 
-                int b = nums[j];
-                long target2 = (long)target - (long)a - (long)b;
+        for (int i = 0; i < N - 3; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) continue; // skip duplicates
 
-                // perform 2 sum
-                int front = j+1; int rear = N-1;
-                while(front<rear) {
-                    long twoSum = (long) nums[front] + (long) nums[rear];
-                    if (twoSum < target2) front++;
-                    else if (twoSum > target2) rear--;
-                    // found
+            for (int j = i + 1; j < N - 2; j++) {
+                if (j > i + 1 && nums[j] == nums[j - 1]) continue; // skip duplicates
+
+                int left = j + 1, right = N - 1;
+
+                while (left < right) {
+                    long sum = (long) nums[i] + nums[j] + nums[left] + nums[right];
+
+                    if (sum == target) {
+                        result.add(Arrays.asList(nums[i], nums[j], nums[left], nums[right]));
+
+                        left++;
+                        right--;
+
+                        // skip duplicates using left pointer
+                        while (left < right && nums[left] == nums[left - 1]) 
+                            left++;
+
+                        // skip duplicates using ight pointer
+                        while (left < right && nums[right] == nums[right + 1]) 
+                            right--;
+                    } 
+                    else if (sum < target) {
+                        left++;
+                    } 
                     else {
-                        List<Integer> quad = new ArrayList();
-                        quad.add(a); quad.add(b);
-                        quad.add(nums[front]);
-                        quad.add(nums[rear]);
-                        res.add(quad);
-
-                        while(front < rear && nums[front] == quad.get(2)) front++;
-                        while(front < rear && nums[rear] == quad.get(3)) rear--;
+                        right--;
                     }
                 }
+            }
+        }
 
-            while(j+1 < N && nums[j]==nums[j+1]) j++;
-            } 
-        while(i+1 < N && nums[i]==nums[i+1]) i++;
-        } 
-
-
-        return res;
-
+        return result;
     }
 }
