@@ -1,16 +1,11 @@
 class Solution {
     public long[] sumOfThree(long num) {
-
-        for(int i = 0 ; i < num-3; i++) {
-            for(int j = i+1 ; j < num-2 ; j++) {
-                for(int k = j+1 ; k < num-1 ; k++) {
-                    if(i+1 == j && j+1 ==k && i+j+k == num) {
-                            return new long[]{i,j,k};
-                        }
-                    }
-                }   
-            }
-
-        return new long[0];
+        
+        if(num%3 != 0)
+            return new long[]{};
+        
+        long a = num/3;
+        
+        return new long[] {a-1,a,a+1};
     }
 }
