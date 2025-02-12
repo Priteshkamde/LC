@@ -7,24 +7,27 @@ class Solution {
             map.put(c, map.getOrDefault(c, 0) + 1);
         }
 
-        PriorityQueue<Character> pq = new PriorityQueue(
-            (a,b) -> map.get(b) - map.get(a)
-        );
+        List<Character>[] list = new List[s.length() + 1];
 
         for(char c : map.keySet()) {
-            pq.add(c);
+            int index = map.get(c);
+            if(list[index] == null) {
+                list[index] = new ArrayList();
+            }
+            list[index].add(c);
         }
 
         StringBuilder sb = new StringBuilder();
-        while(!pq.isEmpty()) {
-            Character c  = pq.poll();
-            int count = map.get(c);
-            while(count > 0) {
-                sb.append(c);
-                count--;
+
+        for(int i = list.length -1 ; i >= 0 ; i-- ) {
+            if(list[i] != null){
+                for(char c : list[i]) {
+                    sb.append(String.valueOf(c).repeat(i));
+                }
             }
         }
 
-        return sb.toString();        
+        return sb.toString();
+           
     }
 }
