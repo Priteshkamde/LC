@@ -12,12 +12,10 @@ class Solution {
             leftMax = Math.max(leftMax, height[i]);
             leftArray[i] = leftMax - height[i];
         }
-        System.out.println(Arrays.toString(leftArray));
         for(int i = N-1 ; i >= 0 ; i--){
             rightMax = Math.max(rightMax, height[i]);
             rightArray[i] = rightMax - height[i];
         }
-        System.out.println(Arrays.toString(rightArray));
         int water = 0;
         int i = 0;
         while(i<N){
