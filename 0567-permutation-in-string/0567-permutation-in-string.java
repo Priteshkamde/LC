@@ -1,26 +1,32 @@
 class Solution {
     public boolean checkInclusion(String s1, String s2) {
-        if(s1.length() > s2.length()) return false;
-        int[] s1_array = new int[26];
-        int[] s2_array = new int[26];
-         int window_size = s1.length();
         
-        for(int i = 0 ; i < window_size ; i++) {
-            s1_array[s1.charAt(i) - 'a']++;
-            s2_array[s2.charAt(i) - 'a']++;
+        int[] first = new int[26];
+        int[] second = new int[26];
+
+        for(char c : s1.toCharArray()){
+            first[c-'a']+=1;
         }
-        
-        if(Arrays.equals(s1_array, s2_array)) return true;
-        
-        for(int i = window_size ; i < s2.length() ; i++) {
-            
-            s2_array[s2.charAt(i) - 'a']++;
-            s2_array[s2.charAt(i - window_size) - 'a']--;
-            
-            if(Arrays.equals(s1_array, s2_array)) return true;
+
+        int windowLen = s1.length()-1;
+        for(int i = 0 ; i < s2.length() ; i++) {
+            second[s2.charAt(i)-'a']+=1;
+            if(i >= windowLen){
+                if(match(first, second)){
+                    return true;
+                }
+                second[s2.charAt(i-windowLen)-'a']-=1;
+            }
+
         }
-        
         return false;
-        
+    }
+
+    private boolean match(int[] first, int[] second) {
+        for(int i = 0 ; i < 26 ; i++)
+            if(first[i] != second[i])
+                return false;
+    
+        return true;
     }
 }
