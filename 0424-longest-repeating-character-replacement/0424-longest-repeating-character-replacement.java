@@ -1,6 +1,5 @@
 class Solution {
     public int characterReplacement(String s, int k) {
-        if(k == 0) return 0;
 
         int left = 0;
         int right = 0;
@@ -18,7 +17,7 @@ class Solution {
                 left++;
             }
 
-            windowSize = right-left+1;
+            windowSize = right - left + 1;
             maxWindow = Math.max(maxWindow, windowSize);
         }
 
