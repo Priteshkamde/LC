@@ -1,31 +1,45 @@
-
 class Solution {
-    
-    long resolveIt(long a, long b, char op) {
-        switch(op) {
-            case '+': return a + b;
-            case '-': return a - b;
-            case '*': return a * b;
-            case '/': return a / b;
-            default: throw new IllegalArgumentException("Invalid operator");
-        }
-    }
-    
     public int evalRPN(String[] tokens) {
-        
-        Stack<Long> stack = new Stack<>();
-        
+
+        Stack<Integer> stack = new Stack();
+
         for (String token : tokens) {
-            if (token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/")) {
-                long a = stack.pop();
-                long b = stack.pop();
-                long res = resolveIt(b, a, token.charAt(0)); // b op a
-                stack.push(res);
-            } else {
-                stack.push(Long.parseLong(token));
+            if (isNumber(token))
+                stack.push(Integer.parseInt(token));
+
+            else {
+                int a = stack.pop();
+                int b = stack.pop();
+                int c = 0;
+                switch (token) {
+                    case "+":
+                        c = a + b;
+                        break;
+                    case "-":
+                        c = b - a;
+                        break;
+                    case "/":
+                        c = b / a;
+                        break;
+                    case "*":
+                        c = a * b;
+                        break;
+                    default:
+                        break;
+                }
+                stack.push(c);
             }
         }
-        
-        return stack.pop().intValue();
+
+        return stack.peek();
+    }
+
+    private boolean isNumber(String token) {
+        try {
+            Integer.parseInt(token);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }
