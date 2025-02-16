@@ -1,35 +1,29 @@
 class MinStack {
-    
-    private Node head;
+
+    Deque<int[]> dq;
+
+    public MinStack() {
+        dq = new ArrayDeque<int[]>();
+    }
     
     public void push(int val) {
-        if(head==null) 
-            head = new Node(val, val, null);
-        else 
-            head = new Node(val, Math.min(head.min, val), head);
+        int min = val;
+        if(!dq.isEmpty())
+            min = Math.min(min, dq.peek()[1]);
+        dq.addFirst(new int[]{val, min});
     }
     
     public void pop() {
-        head = head.next;
+        if(!dq.isEmpty())
+            dq.pollFirst();
     }
     
     public int top() {
-        return head.val;
+        return dq.peek()[0];
     }
     
     public int getMin() {
-      return head.min; 
-    }
-
-    private class Node {
-        int val;
-        int min;
-        Node next;
-        private Node(int val, int min, Node next) {
-            this.val = val;
-            this.min = min;
-            this.next = next;
-        }   
+        return dq.peek()[1];
     }
 }
 
