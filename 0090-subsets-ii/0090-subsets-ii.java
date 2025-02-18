@@ -1,28 +1,28 @@
 class Solution {
     public List<List<Integer>> subsetsWithDup(int[] nums) {
-
+        List<List<Integer>> result = new ArrayList();
         Arrays.sort(nums);
-        List<List<Integer>> result = new ArrayList<>();
-        dfs(nums, 0, new ArrayList<Integer>(), result);
-        return result; 
+        backtrack(result, new ArrayList<>(), nums, 0);
+        return result;
     }
 
+        private void backtrack(List<List<Integer>> result, List<Integer> temp, int[] nums, int start){
 
-    public void dfs(
-        int[] nums, 
-        int index,
-        List<Integer> path,
-        List<List<Integer>> result) {
+        
+        if(!result.contains(new ArrayList(temp)))
+            result.add(new ArrayList(temp));
 
-            result.add(path);
-            for(int i = index ; i < nums.length ; i++) {
+        for(int i = start ; i < nums.length ; i++) {
+            // decision 1 = include number
+            if( i < start && nums[i] == nums[i-1]) continue;
+            temp.add(nums[i]);
 
-                if(i>index && nums[i] == nums[i-1]) continue;
-            
-                List<Integer> cPath = new ArrayList<>(path);
-                cPath.add(nums[i]);
+            // recur = perform a recursion 
+            backtrack(result, temp, nums, i+1);
 
-                dfs(nums, i+1, cPath, result);
-            }
+            // diff decision = no need to pick that number in next iteration
+            temp.remove(temp.size()-1);
         }
+
+    }
 }
