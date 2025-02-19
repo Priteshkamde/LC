@@ -14,13 +14,16 @@ class Solution {
         int[] nums, 
         int target, int start) {
 
+            /// base case
         if(target == 0) {
             result.add(new ArrayList<>(tempResult));
             return;
         }
 
+            // cannot go low than target after subtracting each element
         if(target < 0) return;
 
+        // iterate from start -> n 
         for(int i = start; i < nums.length; i++) {
                 tempResult.add(nums[i]);
                 backtrack(result, tempResult, nums, target - nums[i], i);
