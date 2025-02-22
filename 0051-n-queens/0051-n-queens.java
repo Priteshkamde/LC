@@ -25,7 +25,6 @@ class Solution {
 
             // result
             result.add(rows);
-            return;
         }
 
         // try to add Queen
