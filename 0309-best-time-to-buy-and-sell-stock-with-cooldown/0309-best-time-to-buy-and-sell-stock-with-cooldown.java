@@ -4,8 +4,7 @@ class Solution {
         int sold = Integer.MIN_VALUE;
         int held = Integer.MIN_VALUE;
         int reset = 0;
-
-        for(int price : prices){
+        for(int price : prices) {
             int prevSold = sold;
             sold = held + price;
             held = Math.max(held, reset-price);
