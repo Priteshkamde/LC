@@ -10,7 +10,6 @@ class Solution {
             held = Math.max(held, reset-price);
             reset = Math.max(reset, prevSold);
         }
-
         return Math.max(sold, reset);
     }
 }
