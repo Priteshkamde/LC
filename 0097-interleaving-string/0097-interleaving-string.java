@@ -9,11 +9,11 @@ class Solution {
         boolean dp[][] = new boolean[s1Len+1][s2Len+1];
         dp[0][0] = true;
 
-        // first row
+        // first col
         for(int i = 1 ; i <= s1Len ; i++) { 
             dp[i][0] = dp[i-1][0] && s1.charAt(i-1) == s3.charAt(i-1);
         }
-        // first col
+        // first row
         for(int j = 1 ; j <= s2Len ; j++) { 
             dp[0][j] = dp[0][j-1] && s2.charAt(j-1) == s3.charAt(j-1);
         }
