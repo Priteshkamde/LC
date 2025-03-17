@@ -10,39 +10,16 @@
  */
 class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-    
-        ListNode ptr1 = list1;
-        ListNode ptr2 = list2;
-        ListNode result = new ListNode();
-        ListNode newHead = result;
-        while(ptr1 != null && ptr2 != null) {
-            if(ptr1.val <= ptr2.val){
-                result.next = ptr1;
-                ptr1 = ptr1.next;
-                result = result.next;
-            } else {
-                result.next = ptr2;
-                ptr2 = ptr2.next;
-                result = result.next;
-            }
-        }
+        if(list1 == null) return list2;
+        if(list2 == null) return list1;
 
-        while(ptr1 != null) {
-            result.next = ptr1;
-            ptr1 = ptr1.next;
-            result = result.next;
+        if(list1.val <= list2.val) {
+            list1.next = mergeTwoLists(list1.next, list2);
+            return list1;
         }
-
-        while(ptr2 != null) {
-            result.next = ptr2;
-            ptr2 = ptr2.next;
-            result = result.next;
+        else{
+            list2.next = mergeTwoLists(list1, list2.next);
+            return list2;
         }
-
-        return newHead.next;
-        // iterate on both AND
-        // select the smaller or equal values
-        // iterate on l1 (append)
-        // iterate on l2 (append)
     }
 }
