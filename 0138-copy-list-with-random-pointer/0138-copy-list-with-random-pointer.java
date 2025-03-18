@@ -15,43 +15,22 @@ class Node {
 
 class Solution {
     public Node copyRandomList(Node head) {
+        Node current = head;
+        HashMap<Node, Node> map = new HashMap();
 
-        if(head == null) return null;
-
-        // duplicate current list A-> A* -> B -> B*
-        Node curr = head;
-
-        while(curr != null) {
-            Node newNode = new Node(curr.val);
-            newNode.next = curr.next;
-            curr.next = newNode;
-            curr = newNode.next;
+        while(current != null){
+            map.put(current, new Node(current.val));
+            current = current.next;
         }
 
-        // copy random ptrs
-        curr = head;
-        while(curr != null) {
-            if(curr.random != null) 
-                curr.next.random = curr.random.next;
-            curr = curr.next.next;
+        current = head;
+        while(current!= null) {
+            Node dummy = map.get(current);
+            dummy.next = map.get(current.next);
+            dummy.random = map.get(current.random);
+            current = current.next;
         }
 
-
-        curr = head;
-        Node newHead = head.next;
-        Node newCurr = newHead;
-
-        while(curr != null) {
-            curr.next = newCurr.next;
-            curr = curr.next;
-
-            if(curr != null) {
-                newCurr.next = curr.next;
-                newCurr = newCurr.next;
-            }
-        }
-
-
-        return newHead;
+        return map.get(head);
     }
 }
