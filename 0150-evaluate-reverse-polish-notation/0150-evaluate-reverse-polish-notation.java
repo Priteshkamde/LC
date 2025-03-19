@@ -10,28 +10,24 @@ class Solution {
             else {
                 int a = stack.pop();
                 int b = stack.pop();
-                int c = 0;
                 switch (token) {
                     case "+":
-                        c = a + b;
+                        stack.push(a + b);
                         break;
                     case "-":
-                        c = b - a;
-                        break;
-                    case "/":
-                        c = b / a;
+                        stack.push(b - a);
                         break;
                     case "*":
-                        c = a * b;
+                        stack.push(a * b);
                         break;
-                    default:
+                    case "/":
+                        stack.push(b / a);
                         break;
                 }
-                stack.push(c);
             }
         }
 
-        return stack.peek();
+        return stack.pop();
     }
 
     private boolean isNumber(String token) {
