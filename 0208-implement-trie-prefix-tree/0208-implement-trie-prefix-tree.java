@@ -1,25 +1,51 @@
-class Trie {
+class TrieNode {
+    TrieNode[] charArray = new TrieNode[26];
+    boolean isComplete;
+    TrieNode() {}
+}
 
-    List<String> list;
+class Trie {
+    TrieNode root;
     public Trie() {
-        list = new ArrayList();
+        root = new TrieNode();
     }
     
     public void insert(String word) {
-        list.add(word);
+        TrieNode current = root;
+        for(int i = 0 ; i < word.length() ; i++) {
+            char c = word.charAt(i);
+            if(current.charArray[c-'a'] == null) {
+                current.charArray[c-'a'] = new TrieNode();
+            }
+            current = current.charArray[c-'a'];
+        }
+        current.isComplete = true;
     }
     
     public boolean search(String word) {
-        return list.contains(word);
+        if(word == null) 
+            return false;
+        TrieNode current = root;
+        for(int i = 0 ; i < word.length() ; i++) {
+            char c = word.charAt(i);
+            if(current.charArray[c-'a'] == null) 
+                return false;
+            current = current.charArray[c-'a'];
+        }
+        return current.isComplete;
     }
     
     public boolean startsWith(String prefix) {
-        for(String s : list) {
-            if(s.startsWith(prefix))
-                return true;
+        if(prefix == null)
+            return false;
+        TrieNode current = root;
+        for(int i = 0 ; i < prefix.length() ; i++) {
+            char c = prefix.charAt(i);
+            if(current.charArray[c-'a'] == null) 
+                return false;
+            current = current.charArray[c-'a'];
         }
-
-        return false;
+        return true;
     }
 }
 
