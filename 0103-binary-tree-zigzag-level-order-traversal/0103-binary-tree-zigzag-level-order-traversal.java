@@ -20,16 +20,20 @@ class Solution {
         List<List<Integer>> returnList = new ArrayList<>();
         List<Integer> tempList;
         Queue<TreeNode> q = new ArrayDeque<>();
+        boolean reverse = false;
 
         q.add(root);
-        int level = 0;
 
         while(!q.isEmpty()) {
             int size = q.size();
-            tempList = new ArrayList();
+            tempList = new LinkedList();
             while(size > 0) {
                 TreeNode node = q.poll();
-                tempList.add(node.val);
+                if(reverse) {
+                    tempList.addFirst(node.val);
+                } else {
+                    tempList.add(node.val);
+                }
                 if(node.left != null) {
                     q.add(node.left);
                 }
@@ -38,11 +42,8 @@ class Solution {
                 }
                 size--;
             }
-            if(level % 2 != 0) {
-                Collections.reverse(tempList);
-            }
-            level += 1;
             returnList.add(tempList);
+            reverse = !reverse;
         }
 
         return returnList;
