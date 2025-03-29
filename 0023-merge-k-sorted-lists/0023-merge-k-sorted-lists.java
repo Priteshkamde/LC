@@ -11,32 +11,24 @@
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
 
-        if(lists.length == 0 || lists == null) return null;
+        if(lists == null || lists.length == 0) return null;
 
-        PriorityQueue<ListNode> pq = new PriorityQueue<ListNode>(
-            (a, b) -> (a.val - b.val)
-        );
-
-        for(ListNode node : lists) {
-            if(node != null) {
+        PriorityQueue<ListNode> pq = new PriorityQueue<ListNode>((a,b) -> a.val - b.val);
+        ListNode dummy = new ListNode();
+        ListNode head = dummy;
+        for(ListNode node : lists)
+            if(node != null)
                 pq.add(node);
-            }
-        }
-
-        ListNode newList = new ListNode();
-        ListNode dummy = newList;
 
         while(!pq.isEmpty()) {
             ListNode node = pq.poll();
             dummy.next = node;
             dummy = dummy.next;
 
-            if (node.next != null) {
+            if(node != null && node.next != null)
                 pq.add(node.next);
-            }
         }
 
-        return newList.next;
-        
+        return head.next;
     }
 }
