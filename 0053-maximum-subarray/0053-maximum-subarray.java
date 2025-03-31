@@ -13,7 +13,7 @@ class Solution {
         
         int max = temp[0];
         for(int x : temp) {
-            if(x>max) {
+            if(x > max) {
                 max = x;
             }
         }
