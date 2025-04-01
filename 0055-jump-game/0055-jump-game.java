@@ -6,9 +6,7 @@ class Solution {
             if (i > max)
                 return false;
             max = Math.max(max, i + nums[i]);
-            if (max >= N - 1)
-                return true;
         }
-        return false;
+        return true;
     }
 }
