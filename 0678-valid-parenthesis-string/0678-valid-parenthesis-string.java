@@ -5,6 +5,10 @@ class Solution {
     }
 
 // TLE if all the string content is *
+// With No memo
+// TC = 3^n and SC = N(size of string in stack space)
+// With memo
+// TC = n^2 (table) and SC = n^2 (table)
     public boolean check(String s, int index, int count, Map<String, Boolean> memo) {
         if (count < 0)
             return false;
@@ -29,7 +33,7 @@ class Solution {
             check(s, index+1, count-1, memo) ||
             check(s, index+1, count, memo);
         }
-        
+
         memo.put(key, result);
         return result;
     }
