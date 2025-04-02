@@ -6,16 +6,10 @@ class Solution {
         for(char x : s.toCharArray())
             set.add(x);
 
-        for (Character st : set) {
-            System.out.println("looking for " + st);
+        for (Character st : set) 
             intervals.add(new int[] { s.indexOf(st), s.lastIndexOf(st) });
-        }
 
         Collections.sort(intervals, (a,b) -> a[0]-b[0]);
-
-        int j = 0;
-        for(int[] i : intervals)
-            System.out.println(Arrays.toString(i));
         
         List<int[]> list = new LinkedList<>();
         int[] current = intervals.get(0);
