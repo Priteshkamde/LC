@@ -22,16 +22,14 @@ class Solution {
 
             //left
             colEnd--;
-            if(rowBegin <= rowEnd)
-                for(int j = colEnd; j >= colBegin ; j--) {
+            for(int j = colEnd; j >= colBegin ; j--) {
                     mat[rowEnd][j] = ptr;
                     ptr++;
                 }
 
             //up
             rowEnd--;
-            if(colBegin <= colEnd)
-                for(int j = rowEnd; j >= rowBegin ; j--) {
+            for(int j = rowEnd; j >= rowBegin ; j--) {
                     mat[j][colBegin] = ptr;
                     ptr++;
                 }
