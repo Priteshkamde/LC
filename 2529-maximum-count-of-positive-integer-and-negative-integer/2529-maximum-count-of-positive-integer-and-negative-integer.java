@@ -1,24 +1,36 @@
 class Solution {
     public int maximumCount(int[] nums) {
-        int ptr = 0;
-        int left = 0;
-        int negCount = 0;
-        int posCount = 0;
         int N = nums.length;
+        int low = 0;
+        int high = N -1;
 
-        while(ptr < N && nums[ptr] < 0) {
-            ptr++;
-            negCount++;
+        // find min positive
+        while(low <= high) {
+            int mid = low+(high-low)/2;
+            if(nums[mid] > 0) {
+                high = mid-1;
+            }
+            else{
+                low = mid+1;   
+            }
+        }
+        // output is index left
+        int posCount = N - low;
+
+        // max negative
+        low = 0;
+        high = N-1;
+        while(low <= high) {
+            int mid = low+(high-low)/2;
+            if(nums[mid] < 0) {
+                low = mid+1;
+            }
+            else{
+                high = mid-1;   
+            }
         }
 
-        while(ptr < N && nums[ptr] == 0) {
-            ptr++;
-        }
-
-        while(ptr < N && nums[ptr] > 0) {
-            posCount++;
-            ptr++;
-        }
+        int negCount = high+1;
 
         return Math.max(posCount, negCount);
     }
