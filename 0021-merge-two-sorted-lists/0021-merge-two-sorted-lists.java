@@ -10,16 +10,38 @@
  */
 class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        if(list1 == null) return list2;
-        if(list2 == null) return list1;
+        PriorityQueue<ListNode> pq = new PriorityQueue<>(
+            (a,b) -> (a.val - b.val)
+        );
 
-        if(list1.val <= list2.val) {
-            list1.next = mergeTwoLists(list1.next, list2);
-            return list1;
+        ListNode ptr1 = list1;
+        ListNode ptr2 = list2;
+        ListNode head = new ListNode();
+        ListNode dummy = head;
+
+        while(ptr1 != null && ptr2 != null) {
+            if(ptr1.val < ptr2.val) {
+                dummy.next = ptr1;
+                dummy = dummy.next;
+                ptr1 = ptr1.next;
+            } else {
+                dummy.next = ptr2;
+                dummy = dummy.next;
+                ptr2 = ptr2.next;
+            }
         }
-        else{
-            list2.next = mergeTwoLists(list1, list2.next);
-            return list2;
+
+        while(ptr1!= null) {
+            dummy.next = ptr1;
+            dummy = dummy.next;
+            ptr1 = ptr1.next;
         }
+        while(ptr2!= null) {
+            dummy.next = ptr2;
+            dummy = dummy.next;
+            ptr2 = ptr2.next;
+        }
+
+        return head.next;
     }
 }
