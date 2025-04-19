@@ -1,29 +1,22 @@
 class Solution {
     public int[][] floodFill(int[][] image, int sr, int sc, int color) {
-
-        int currColor = image[sr][sc];
-        if (currColor == color) return image; 
-
-        int maxRow = image.length;
-        int maxCol = image[0].length;
-
-        paint(sr,sc,color,maxRow,maxCol,image, currColor);
-
-        return image;
-    }
-
-    public void paint(int row,int col,int color,int maxRow, int maxCol, int[][] image, int currColor){
-
-        if(row < 0 || col < 0 || row >= maxRow || col >= maxCol)
-            return;
-        if (image[row][col] != currColor) 
-            return;
         
-        image[row][col] = color;
+        
+    if ( image[sr][sc] ==  color) return image;    
+    fill(image, sr, sc, image[sr][sc] ,color);
+            return image;
+    }
+    
+    public void fill(int[][] img, int row, int col,  int color, int newColor) {
+        
+        if( row < 0 || row >= img.length || 
+           col < 0 || col >= img[1].length || img[row][col]!=color) return;
+        
+        img[row][col] = newColor;
+        fill(img,row-1,col,color, newColor);
+        fill(img,row+1,col,color, newColor);
+        fill(img,row,col+1,color, newColor);
+        fill(img,row,col-1,color, newColor);
 
-        paint(row+1, col, color, maxRow, maxCol, image, currColor);
-        paint(row, col+1, color, maxRow, maxCol, image, currColor);
-        paint(row-1, col, color, maxRow, maxCol, image, currColor);
-        paint(row, col-1, color, maxRow, maxCol, image, currColor);
     }
 }
