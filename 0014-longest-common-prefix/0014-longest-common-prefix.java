@@ -9,7 +9,10 @@ class Solution {
 
         
         while(last.indexOf(first) != 0) {
-                first = first.substring(0, first.length()-1);
+                if (first.isEmpty()) 
+                    return "";
+                else
+                    first = first.substring(0, first.length()-1);
             }
         
 
