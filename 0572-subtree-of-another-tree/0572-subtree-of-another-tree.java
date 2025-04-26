@@ -15,25 +15,21 @@
  */
 class Solution {
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+
         if(root == null)
             return false;
 
-        if(isSame(root, subRoot))
-            return true;
-
-        return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+        String rootString = preOrder(root);
+        String subRootString = preOrder(subRoot);
+        System.out.println(rootString);
+        System.out.println(subRootString);
+        return rootString.contains(subRootString);
     }
 
-    boolean isSame(TreeNode a, TreeNode b) {
-        if(a == null && b == null) 
-            return true;
-
-        if(a == null || b == null)
-            return false;
-
-        if(a.val != b.val)
-            return false;
-
-        return isSame(a.left, b.left) && isSame(a.right, b.right);
+    public String preOrder(TreeNode root) {
+        if(root == null) {
+            return " null";
+        }
+        return " " + root.val + preOrder(root.left) + preOrder(root.right);
     }
 }
