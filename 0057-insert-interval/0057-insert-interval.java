@@ -1,28 +1,27 @@
 class Solution {
     public int[][] insert(int[][] intervals, int[] newInterval) {
-        int[][] result = new int[intervals.length+1][2];
+        ArrayList<int[]> result = new ArrayList<>();
 
         int i = 0;
-        int j = 0;
         // no overlap - simply add them
-        while(j < intervals.length && intervals[i][1] < newInterval[0]){
-            result[j++] = intervals[i];
+        while(i < intervals.length && intervals[i][1] < newInterval[0]){
+            result.add(intervals[i]);
             i++;
         }
         // overlap present - start merging
-        while(i < intervals.length && newInterval[0] <= intervals[i][1]
-        && newInterval[1] >= intervals[i][0]) {
+        while(i < intervals.length && newInterval[1] >= intervals[i][0]) {
             newInterval[0] = Math.min(intervals[i][0], newInterval[0]);
-            newInterval[1] = Math.max(newInterval[1], intervals[i++][1]);
-        }
-
-        result[j++] = newInterval;
-
-        while(i < intervals.length) {
-            result[j++] = intervals[i];
+            newInterval[1] = Math.max(newInterval[1], intervals[i][1]);
             i++;
         }
 
-        return Arrays.copyOf(result, j);
+        result.add(newInterval);
+
+        while(i < intervals.length) {
+            result.add(intervals[i]);
+            i++;
+        }
+
+        return result.toArray(new int[result.size()][2]);
     }
 }
