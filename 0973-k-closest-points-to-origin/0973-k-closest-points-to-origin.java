@@ -18,7 +18,7 @@ class Solution {
     // function to calculate dist
     // return dist
     public double getDistance(int[] point){
-        return Math.sqrt( point[0]*point[0] + point[1]*point[1] );
+        return point[0]*point[0] + point[1]*point[1];
     }
 
 }
