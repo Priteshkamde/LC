@@ -1,50 +1,40 @@
 class Solution {
-    private class Point {
-        int x;
-        int y;
-        Point(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-    }
-    
-    private int[][] dirs = new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+    public int[][] updateMatrix(int[][] mat) {
+        int row = mat.length;
+        int col = mat[0].length;
+        int[][] result = new int[row][col];
 
-    public int[][] updateMatrix(int[][] matrix) {
-        Queue<Point> queue = new LinkedList<>();
-        
-        // Fill 1 with -1
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                if (matrix[i][j] == 1) {
-                    matrix[i][j] = -1;
-                } else {
-                    queue.offer(new Point(i, j));
+        for(int i = 0 ; i < row ; i++)
+            for(int j = 0 ; j < col ; j++)
+                result[i][j] = Integer.MAX_VALUE;
+
+        for(int i = 0 ; i < row ; i++) {
+            for(int j = 0 ; j < col ; j++) {
+                if(mat[i][j] == 0) {
+                    result[i][j] = 0;
+                }
+                else {
+                    if(i > 0)
+                        result[i][j] = Math.min(result[i-1][j] + 1, result[i][j]);
+                    if(j > 0)
+                        result[i][j] = Math.min(result[i][j-1] + 1, result[i][j]);
                 }
             }
         }
-        
-        // BFS
-        int length = 0;
-        while (!queue.isEmpty()) {
-            int size = queue.size();
-            length++;
-            for (int i = 0; i < size; i++) {
-                Point curPoint = queue.poll();
-                for (int[] dir : dirs) {
-                    int ii = curPoint.x + dir[0];
-                    int jj = curPoint.y + dir[1];
-                    
-                    if (ii >= 0 && jj >= 0 && ii < matrix.length && jj < matrix[0].length) {
-                        if (matrix[ii][jj] == -1) {
-                            matrix[ii][jj] = length;
-                            queue.offer(new Point(ii, jj));
-                        }
+
+        for(int i = row-1 ; i >= 0 ; i--) {
+            for(int j = col-1 ; j >= 0 ; j--) {
+                if(mat[i][j] != 0) {
+                    if(i < row - 1) {
+                        result[i][j] = Math.min(result[i+1][j] + 1, result[i][j]);
+                    }
+                    if(j < col - 1) {
+                        result[i][j] = Math.min(result[i][j+1] + 1, result[i][j]);
                     }
                 }
             }
         }
         
-        return matrix;
+    return result;
     }
 }
