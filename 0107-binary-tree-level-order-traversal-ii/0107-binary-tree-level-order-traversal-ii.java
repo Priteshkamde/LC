@@ -20,6 +20,7 @@ class Solution {
 
         List<List<Integer>> result = new ArrayList<>();
         Queue<TreeNode> q = new LinkedList();
+        Stack<List<Integer>> stack = new Stack();
         List<Integer> list;
         q.add(root);
 
@@ -35,8 +36,11 @@ class Solution {
                 if(t.right != null)
                     q.add(t.right);
             }
-            result.add(0,list);
+            stack.push(list);
         }
+
+        while(!stack.isEmpty())
+            result.add(stack.pop());
 
         return result;
     }
