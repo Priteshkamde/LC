@@ -1,27 +1,22 @@
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-
-        // Use adjacency list to form a graph
         ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
-        for (int i = 0; i < numCourses; i++) {
-            // Initialize empty lists for each course
+        
+        for(int i = 0 ; i < numCourses ; i++) {
             adj.add(new ArrayList<>());
         }
 
-        // Build the adjacency list (b -> a means to take course a, you must take course b first)
-        for (int[] pair : prerequisites) {
-            adj.get(pair[1]).add(pair[0]);
+        for(int[] edge : prerequisites) {
+            adj.get(edge[1]).add(edge[0]);
         }
 
-        // Create an indegree array with size equal to numCourses
-        int indegree[] = new int[numCourses];
+        int[] indegree = new int[numCourses];
         for (int i = 0; i < numCourses; i++) {
-            for (int node : adj.get(i)) {
-                indegree[node]++;
+            for (int edge : adj.get(i)) {
+                indegree[edge]++;
             }
         }
 
-        // Queue to hold courses with no prerequisites
         Queue<Integer> q = new LinkedList<>();
         for (int i = 0; i < numCourses; i++) {
             if (indegree[i] == 0) {
@@ -30,8 +25,7 @@ class Solution {
         }
 
         List<Integer> toposort = new ArrayList<>();
-
-        // Process the queue
+        
         while (!q.isEmpty()) {
             int node = q.poll();
             toposort.add(node);
@@ -44,7 +38,8 @@ class Solution {
             }
         }
 
-        // If toposort contains all courses, then we can finish all courses
+
         return toposort.size() == numCourses;
+
     }
 }
