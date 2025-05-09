@@ -8,7 +8,6 @@ class Solution {
         int a = nums[0] * nums[1] * nums[nums.length-1];
         int b = nums[nums.length-3] * nums[nums.length-2] * nums[nums.length-1];
 
-        return Math.max(a,b);
-        
+        return Math.max(a,b);   
     }
 }
