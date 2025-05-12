@@ -1,30 +1,38 @@
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
         
-        if(nums.length == k) return nums;
-        int[] result = new int[k];
+        // hashmap = <key, value>
+        // treemap <key, List>
+        // in treemap where key is frequency i.e. value in hashmap
+        // in the treemap sorted by natural orderin
+        // extract from last of tree map
+        HashMap<Integer, Integer> map = new HashMap<>();
 
-        Map<Integer, Integer> map = new HashMap<>();
-
-        for(int x : nums) {
-            map.put(x, map.getOrDefault(x, 0)+1);
+        for(int n : nums) {
+            map.put(n, map.getOrDefault(n,0)+1);
         }
 
-        TreeMap<Integer, List<Integer>> freqMap = new TreeMap();
+        TreeMap<Integer, List<Integer>> treemap= new TreeMap<>();
+
         for(int num : map.keySet()) {
             int freq = map.get(num);
-            if(!freqMap.containsKey(freq)) {
-                freqMap.put(freq, new LinkedList());
+            if(!treemap.containsKey(freq)){
+                treemap.put(freq, new LinkedList());
             }
-            freqMap.get(freq).add(num);
+            treemap.get(freq).add(num);
         }
 
+        // <1, <3,4>>
+        // <3, <1,2>>
+
         int index = 0;
+        int[] result = new int[k];
         while(index < k) {
-            Map.Entry<Integer, List<Integer>> entry = freqMap.pollLastEntry();
-            List<Integer> values = entry.getValue();
-            for(int x : values)
+            Map.Entry<Integer, List<Integer>> entry= treemap.pollLastEntry();
+            List<Integer> list = entry.getValue();
+            for(int x : list) {
                 result[index++] = x;
+            }
         }
 
         return result;
