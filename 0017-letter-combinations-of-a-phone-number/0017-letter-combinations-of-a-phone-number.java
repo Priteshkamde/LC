@@ -1,44 +1,40 @@
 class Solution {
-    List<String> result = new ArrayList<>();
-    String map[] = new String[]{
-            "",
-            "",
-                "abc",
-                "def",
-                "ghi",
-                "jkl",
-                "mno",
-                "pqrs",
-                "tuv",
-                "wxyz"
-        };
-    public List<String> letterCombinations(String digits) {
-        
-        if(digits == null)
-            return result;
+    List<String> result = null;
+    String[] mapping = new String[] { "", "",
+            "abc", "def",
+            "ghi", "jkl", "mno",
+            "pqrs", "tuv", "wxyz" };
 
-        if(digits.length() == 0)
+    public List<String> letterCombinations(String digits) {
+        result = new ArrayList();
+        if (digits.length() == 0)
             return result;
-        
-        // (len, digits, String)
-        StringBuilder sb = new StringBuilder(digits);
         backtrack(0, digits, new StringBuilder());
 
         return result;
     }
 
-    private void backtrack(int currLen, String digits, StringBuilder temp){
-        if(currLen == digits.length()) {
+    // base case where we get a string char from initial stage and
+    // append it with next letters in next number
+    private void backtrack(int len, String digits, StringBuilder temp) {
+        if (len == digits.length()) {
             result.add(temp.toString());
             return;
         }
- 
-        char ch = digits.charAt(currLen);
-        String str = map[ch-'0'];
-        for(char c : str.toCharArray()) {
+
+        char ch = digits.charAt(len);
+        // ch - '0' converts a character digit (e.g., '2') into an integer (2)
+        String str = mapping[ch - '0'];
+        // "abc"
+        for (char c : str.toCharArray()) {
+            // iterate using "a" from "abc"
             temp.append(c);
-            backtrack(currLen+1, digits, temp);
-            temp.deleteCharAt(temp.length()-1);
+            // increment length
+            // to move to next number in digits
+            // extract "def"
+            // call backtrack with "a" +
+            backtrack(len + 1, digits, temp);
+            temp.deleteCharAt(temp.length() - 1);
         }
     }
 }
