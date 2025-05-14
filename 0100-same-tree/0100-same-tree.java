@@ -15,15 +15,16 @@
  */
 class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
-        if(p == null && q == null)
-            return true;
+        String pOrder = Serialize(p);
+        String qOrder = Serialize(q);
 
-        if(p == null || q == null)
-            return false;
-        
-        if(p.val != q.val)
-            return false;
+        return qOrder.equals(pOrder);
+    }
 
-        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    private String Serialize(TreeNode root) {
+        if(root == null)
+            return " N";
+
+        return root.val + " " + Serialize(root.left) + " " + Serialize(root.right);
     }
 }
