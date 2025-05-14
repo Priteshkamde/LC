@@ -21,8 +21,8 @@ class Solution {
 
         String rootString = preOrder(root);
         String subRootString = preOrder(subRoot);
-        System.out.println(rootString);
-        System.out.println(subRootString);
+        // System.out.println(rootString);
+        // System.out.println(subRootString);
         return rootString.contains(subRootString);
     }
 
