@@ -3,15 +3,18 @@ class Solution {
         if(s.length() != t.length()) return false;
         int[] charArray = new int[26];
 
-        for(int i = 0 ; i < s.length() ; i++) {
-            charArray[s.charAt(i) - 'a']++;
+        for(char c : s.toCharArray()) {
+            charArray[c - 'a']++;
         }
 
-        for(int i = 0 ; i < t.length() ; i++) {
-            if(--charArray[t.charAt(i) - 'a'] < 0)
+
+        for(char c : t.toCharArray()) {
+            if(--charArray[c-'a'] < 0) {
                 return false;
+            }
         }
 
         return true;
+        
     }
 }
