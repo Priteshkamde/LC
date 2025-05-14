@@ -1,25 +1,47 @@
 class TimeMap {
-    HashMap<String, TreeMap<Integer, String>> map;
+
+    class Data {
+        String value;
+        int timestamp;
+        public Data(String value, int timestamp){
+            this.timestamp = timestamp;
+            this.value = value;
+        }
+    }
+
+    HashMap<String, List<Data>> map;
 
     public TimeMap() {
-        map = new HashMap<>();
+        map = new HashMap();
     }
     
     public void set(String key, String value, int timestamp) {
-        map.putIfAbsent(key, new TreeMap<>());
-        map.get(key).put(timestamp, value);
+        if(!map.containsKey(key)) map.put(key, new ArrayList<Data>());
+        map.get(key).add(new Data(value, timestamp));
     }
     
     public String get(String key, int timestamp) {
-        if(!map.containsKey(key))        
-            return "";
+        if(!map.containsKey(key)) return "";
 
-        TreeMap<Integer, String> tmap = map.get(key);
-        Integer floorKey = tmap.floorKey(timestamp);
+        List<Data> list = map.get(key);
 
-        if(floorKey == null) return "";
+        return helper(list, timestamp);
+    }
 
-        return tmap.get(floorKey);
+    public String helper(List<Data> list, int timestamp){
+        // binary search in the list
+        int low = 0;
+        int high = list.size()-1;
+
+        while(low < high) {
+            int mid = (low + high + 1)/2;
+            if(list.get(mid).timestamp <= timestamp) {
+                low = mid;
+            }  else {
+                high = mid - 1;
+            }
+        }
+        return list.get(low).timestamp > timestamp ? "" : list.get(low).value;
     }
 }
 
