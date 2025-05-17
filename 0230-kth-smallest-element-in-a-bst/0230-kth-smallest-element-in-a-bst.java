@@ -15,16 +15,22 @@
  */
 class Solution {
     public int kthSmallest(TreeNode root, int k) {
-        ArrayList<Integer> result = new ArrayList();
-        kSMall(root, result);
-        System.out.println(result);
-        return result.get(k-1);
+        List<Integer> list = new ArrayList<>();
+
+        inorder(root, list, k);
+        System.out.println(list);
+        return list.get(k-1);
     }
 
-    public void kSMall(TreeNode root, ArrayList<Integer> result) {
-        if(root == null) return;
-        kSMall(root.left, result);
-        result.add(root.val);
-        kSMall(root.right, result);
+    public void inorder(TreeNode root, List<Integer> list, int k) {
+        if(root == null) 
+            return;
+        
+        if(list.size() == k)
+            return;
+        
+        inorder(root.left, list, k);
+        list.add(root.val);
+        inorder(root.right, list, k);
     }
 }
