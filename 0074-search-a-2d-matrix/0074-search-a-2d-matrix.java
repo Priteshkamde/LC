@@ -1,20 +1,20 @@
 class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
         
-        int maxRow = matrix.length;
-        int maxCol = matrix[0].length;
+        int rows = matrix.length-1;
+        int cols = matrix[0].length-1;
 
-        int m = 0;
-        int n = maxCol-1;
+        int r = 0;
+        int c = cols;
 
-        while( m >= 0 && m < maxRow && n >= 0 && n < maxCol) {
-            if(target == matrix[m][n]){
+        while(r >= 0 && c >= 0 && r <= rows && c <= cols) {
+            if(matrix[r][c] == target)
                 return true;
-            }
-            if(target < matrix[m][n]) {
-                n-=1;
+            
+            if(target < matrix[r][c]) {
+                c--;
             } else {
-                m+=1;
+                r++;
             }
         }
 
