@@ -32,8 +32,9 @@ class Solution {
             dummy.next = curr;
             dummy = dummy.next;
 
-            if(curr!=null && curr.next != null)
-                pq.add(curr.next);
+            curr = curr.next;
+            if(curr!=null)
+                pq.add(curr);
         }
 
         return newHead.next;
