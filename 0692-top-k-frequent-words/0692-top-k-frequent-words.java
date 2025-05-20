@@ -7,8 +7,8 @@ class Solution {
         }
 
         PriorityQueue<String> pq = new PriorityQueue<>(
-            (a, b) -> map.get(a).equals(map.get(b)) ?
-                      b.compareTo(a) : map.get(a) - map.get(b)
+            (a, b) -> map.get(a).equals(map.get(b)) ? 
+            b.compareTo(a) : map.get(a) - map.get(b)
         );
 
         for(String s : map.keySet()) {
