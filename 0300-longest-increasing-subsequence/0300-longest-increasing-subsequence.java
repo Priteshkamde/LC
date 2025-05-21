@@ -1,24 +1,19 @@
 class Solution {
     public int lengthOfLIS(int[] nums) {
-        int[] tails = new int[nums.length];
-        int size = 0;
+        int N = nums.length;
+        int[] dp = new int[N];
 
-        for(int x : nums) {
+        Arrays.fill(dp, 1); // since each number is itlself a subseq
 
-            int i = 0 ; int j = size;
-            while(i != j) {
-                int mid = (i+j)/2 ;
-
-                if(tails[mid] < x) // incoming number is greater try adding it in the tails since we need increasing seq
-                    i = mid + 1;
-                else 
-                    j = mid;
+        // i pointer which is ahead
+        for(int i = 1 ; i < N ; i++){
+            // j pointer which catches up with i
+            for(int j = 0 ; j < i ; j++) {
+                if(nums[j] < nums[i]) // increasing sequence found
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
             }
-            // add it to i'th index
-            tails[i] = x;
-            if ( i == size ) ++size;
         }
 
-        return size;
+        return Arrays.stream(dp).max().getAsInt();
     }
 }
