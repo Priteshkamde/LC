@@ -3,7 +3,6 @@ class Solution {
         
         int low = 0;
         int high = numbers.length -1;
-
         while(low<high) {
             int sum = numbers[low] + numbers[high];
             if(sum == target)
@@ -16,7 +15,6 @@ class Solution {
                 high--;
             }
         }
-
         return new int[]{-1,-1};
     }
 }
