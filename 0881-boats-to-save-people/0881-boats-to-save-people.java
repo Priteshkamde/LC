@@ -18,7 +18,6 @@ class Solution {
             }
         }
 
-        re
-        turn boxes;
+        return boxes;
     }
 }
