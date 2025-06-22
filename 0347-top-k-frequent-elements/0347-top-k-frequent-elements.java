@@ -1,34 +1,27 @@
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
-        // hash map to store freq
-        // I will extract the value and act it as key for TreeMap
-        // iterate in the tree map for K
-
+        // <num, freq>
         HashMap<Integer, Integer> map = new HashMap<>();
-        for (int num : nums) {
-            map.put(num, map.getOrDefault(num, 0) + 1);
+        
+        for(int num : nums) {
+            map.put(num, map.getOrDefault(num,0)+1);
         }
 
-        TreeMap<Integer, List<Integer>> treeMap = new TreeMap<>();
+        // max heap by freq
+        PriorityQueue<Integer> pq = new 
+            PriorityQueue<>(
+                (a,b) ->
+                    map.get(b) - map.get(a)
+            );
 
-        for (Integer key : map.keySet()) {
-            int freq = map.get(key);
-            if (!treeMap.containsKey(freq)) {
-                treeMap.put(freq, new LinkedList<>());
-            }
-            treeMap.get(freq).add(key);
+        for(int key : map.keySet()){
+            pq.offer(key);
         }
 
-        int index = 0;
         int[] result = new int[k];
-
-        while (index < k) {
-            Map.Entry<Integer, List<Integer>> entry = treeMap.pollLastEntry();
-            List<Integer> list = entry.getValue();
-
-            for (int x : list) {
-                result[index++] = x;
-            }
+        int index = 0 ;
+        while(k-- > 0) {
+            result[index++] = pq.poll();
         }
 
         return result;
