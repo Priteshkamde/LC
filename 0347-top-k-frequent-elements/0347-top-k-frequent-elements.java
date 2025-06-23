@@ -6,7 +6,6 @@ class Solution {
         for(int num : nums) {
             map.put(num, map.getOrDefault(num,0)+1);
         }
-
         // max heap by freq
         PriorityQueue<Integer> pq = new 
             PriorityQueue<>(
