@@ -1,30 +1,31 @@
 class Solution {
     public int numIslands(char[][] grid) {
-        int row = grid.length;
-        int col = grid[0].length;
-        boolean[][] visited = new boolean[row][col];
-        int islands = 0;
-        for(int i = 0 ; i < row ; i++) {
-            for(int j = 0 ; j < col ; j++) {
-                if( grid[i][j] == '1') {
-                    dfs(i,j,row, col, grid, visited);
-                    islands+=1;
+        // DFS
+        int countofIslands = 0;
+        int rows = grid.length;
+        int cols = grid[0].length;
+        for(int i = 0 ; i < rows ; i++) {
+            for(int j = 0 ; j < cols ; j++) {
+                if(grid[i][j] == '1') {
+                    countofIslands += 1;
+                    dfs(grid, i, j, rows, cols);
                 }
             }
         }
-
-        return islands;
+        return countofIslands;
     }
 
-    void dfs(int i,int j,int row, int col, char[][] grid, boolean[][] visited) {
+    public void dfs(char[][] grid, int i, int j, int rows, int cols) {
 
-        if(i<0 || j < 0 || i >= row || j >= col || grid[i][j] == '0') {
+        if(i < 0 || j < 0 || i >= rows || j >= cols || grid[i][j] == '0') {
             return;
         }
+
         grid[i][j] = '0';
-        dfs(i+1, j, row, col, grid, visited);
-        dfs(i-1, j, row, col, grid, visited);
-        dfs(i, j+1, row, col, grid, visited);
-        dfs(i, j-1, row, col, grid, visited);
+
+        dfs(grid, i+1, j, rows, cols);
+        dfs(grid, i, j+1, rows, cols);
+        dfs(grid, i-1, j, rows, cols);
+        dfs(grid, i, j-1, rows, cols);
     }
 }
