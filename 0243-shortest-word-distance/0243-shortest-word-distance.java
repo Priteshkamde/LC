@@ -1,18 +1,14 @@
 class Solution {
     public int shortestDistance(String[] wordsDict, String word1, String word2) {
         
-        int index1 = -1; 
-        int index2 = -1;
+        Map<String, Integer> map = new HashMap<>();
         int dist = Integer.MAX_VALUE;
-
         for(int i = 0; i < wordsDict.length ; i++) {
-            if(wordsDict[i].equals(word1)) 
-                index1 = i;
-            if(wordsDict[i].equals(word2)) 
-                index2 = i;
+            if(wordsDict[i].equals(word1) || wordsDict[i].equals(word2)) 
+                map.put(wordsDict[i], i);
 
-            if(index1 != -1 && index2 != -1)
-                dist = Math.min(dist, Math.abs(index1 - index2));
+            if(map.containsKey(word1) && map.containsKey(word2))
+                dist = Math.min(dist, Math.abs(map.get(word1) - map.get(word2)));
         }
 
         return dist;
