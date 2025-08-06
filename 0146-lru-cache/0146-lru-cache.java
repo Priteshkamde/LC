@@ -1,4 +1,4 @@
-class Node {
+class Node{
     int key;
     int val;
     Node next;
@@ -6,8 +6,9 @@ class Node {
 }
 
 class LRUCache {
+
+    Map<Integer, Node> map;  
     int cap;
-    Map<Integer, Node> map;
     Node head = new Node();
     Node tail = new Node();
 
@@ -19,37 +20,49 @@ class LRUCache {
     }
     
     public int get(int key) {
-        if(map.containsKey(key)) {
-            Node currNode = map.get(key);
-            removeLast(currNode);
-            addFirst(currNode);
-            return currNode.val;
+        int result = -1;
+        if(!map.containsKey(key)) {
+            return result;
         }
-        return -1;
+        Node node = map.get(key);
+        result = node.val;
+        remove(node);
+        add(node);
+        return result;
     }
     
     public void put(int key, int value) {
-        Node node = map.get(key);
-        if(node != null) {
-            node.val = value;
-            removeLast(node);
-            addFirst(node);
-        } else {
-            if(map.size() == cap) {
-                map.remove(tail.prev.key);
-                removeLast(tail.prev);
-            }
 
+        // check if present
+        if(map.containsKey(key)) {
+            Node node = map.get(key);
+            // update its value
+            node.val = value;
+            // update in map
+            map.put(key, node);
+            // move it front
+            remove(node);
+            add(node);
+        }
+
+        // if a new key
+        else {
+            // check for capacity
+            if(map.size() == cap) {
+                // remove the last 
+                // and add the new one in the front
+                map.remove(tail.prev.key);
+                remove(tail.prev);
+            }
             Node newNode = new Node();
             newNode.val = value;
             newNode.key = key;
-
+            add(newNode);
             map.put(key, newNode);
-            addFirst(newNode);
         }
     }
 
-    public void addFirst(Node node) {
+    public void add(Node node){
         Node headNext = head.next;
         node.prev = head;
         head.next = node;
@@ -57,7 +70,7 @@ class LRUCache {
         headNext.prev = node;
     }
 
-    public void removeLast(Node node) {
+    public void remove(Node node){
         Node prevNode = node.prev;
         Node nextNode = node.next;
         prevNode.next = nextNode;
