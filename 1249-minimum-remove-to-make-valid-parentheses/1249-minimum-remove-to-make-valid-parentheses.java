@@ -1,6 +1,16 @@
 class Solution {
     public String minRemoveToMakeValid(String s) {
 
+        // approach
+        // build a stack for opening brackets
+        // possible encounters are ( ) char
+        // for opening add to stack - cz it needs to be balanced
+        // for closing add ony if we have an opening in stack - (check stack empty)
+            // remove from stack 
+        // if its a normal char - simply add to string builder
+
+        // once this is done - remove any unmtached opening - buy popping them from stack
+
         Stack<Integer> stack = new Stack<>();
         StringBuilder sb = new StringBuilder();
         for (char c : s.toCharArray()) {
