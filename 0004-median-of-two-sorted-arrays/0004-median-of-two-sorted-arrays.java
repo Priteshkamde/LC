@@ -1,34 +1,39 @@
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-
-        int A = nums1.length;
-        int B = nums2.length;
-        int total = A+B;
-        int[] sol =  new int[total];
-
-        int i = 0;
-        int j = 0;
+        // Tc O(M+N)
+        // ScO(M+N)
+        int N = nums1.length;
+        int M = nums2.length;
+        int a = 0;
+        int b = 0;
+        int[] res = new int[N+M];
         int index = 0;
-        while( i < A && j < B){
-            if(nums1[i] < nums2[j]) {
-                sol[index++] = nums1[i++];
+
+        while(a < N && b < M) {
+            if(nums1[a] < nums2[b]) {
+                res[index++] = nums1[a];
+                a++;
             } else {
-                sol[index++] = nums2[j++];
+                res[index++] = nums2[b];
+                b++;
             }
         }
-        
-        while(i < A) {
-            sol[index++] = nums1[i++];
+
+        while(a < N) {
+            res[index++] = nums1[a];
+            a++;
         }
 
-        while(j < B) {
-            sol[index++] = nums2[j++];
+        while(b < M) {
+            res[index++] = nums2[b];
+            b++;
         }
+        System.out.println(Arrays.toString(res));
+        if(res.length % 2 != 0) {
+            return (double) res[(res.length-1) / 2];
+        } 
 
-        if(total % 2 == 0) {
-            return (double) (sol[total/2] + sol[(total/2)-1]) / 2.0;
-        }
-        
-        return (double) sol[total/2];
+        return (res[(res.length - 1) / 2] + res[((res.length - 1) / 2) + 1]) / 2.0;
+
     }
 }
