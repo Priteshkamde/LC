@@ -14,24 +14,29 @@
  * }
  */
 class Solution {
+    // Tc N and Sc N
     public void flatten(TreeNode root) {
-        List<TreeNode> list = new ArrayList<>();
-        preOrder(root, list);
-        System.out.println(list);
-        for (int i = 0; i < list.size() - 1; i++) {
-            TreeNode curr = list.get(i);
-            TreeNode next = list.get(i + 1);
-            curr.left = null;
-            curr.right = next;
-        }
-    }
-
-    private void preOrder(TreeNode root, List<TreeNode> list) {
-        if (root == null) {
+        if(root == null)
             return;
+
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        
+        while(!stack.isEmpty()) {
+            TreeNode node = stack.peek();
+            stack.pop();
+
+            if(node.right != null)
+                stack.push(node.right);
+            
+            if(node.left != null)
+                stack.push(node.left);
+
+            if(!stack.isEmpty()){
+                node.right = stack.peek();
+            }
+
+            node.left = null;    
         }
-        list.add(root); // root
-        preOrder(root.left, list); // left
-        preOrder(root.right, list); // right
     }
 }
