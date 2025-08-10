@@ -10,15 +10,19 @@
  */
 class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        if(list1 == null && list2 ==null)
-            return null;
+        ListNode head = new ListNode();
+        ListNode dummy = head;
+
+        if (list1 == null)
+            return list2;
+        if (list2 == null)
+            return list1;
 
         ListNode ptr1 = list1;
         ListNode ptr2 = list2;
-        ListNode dummy = new ListNode();
-        ListNode merge = dummy;
-        while(ptr1 != null && ptr2 != null) {
-            if(ptr1.val < ptr2.val) {
+
+        while (ptr1 != null && ptr2 != null) {
+            if (ptr1.val <= ptr2.val) {
                 dummy.next = ptr1;
                 dummy = dummy.next;
                 ptr1 = ptr1.next;
@@ -29,17 +33,18 @@ class Solution {
             }
         }
 
-        while(ptr1 != null) {
+        while (ptr1 != null) {
             dummy.next = ptr1;
+            dummy = dummy.next;
             ptr1 = ptr1.next;
-            dummy = dummy.next;
-        }
-        while(ptr2 != null) {
-            dummy.next = ptr2;
-            ptr2 = ptr2.next;
-            dummy = dummy.next;
         }
 
-        return merge.next;
+        while (ptr2 != null) {
+            dummy.next = ptr2;
+            dummy = dummy.next;
+            ptr2 = ptr2.next;
+        }
+
+        return head.next;
     }
 }
