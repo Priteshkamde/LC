@@ -14,29 +14,17 @@
  * }
  */
 class Solution {
-    // Tc N and Sc N
+    private TreeNode prev = null;
     public void flatten(TreeNode root) {
         if(root == null)
             return;
 
-        Stack<TreeNode> stack = new Stack<>();
-        stack.push(root);
-        
-        while(!stack.isEmpty()) {
-            TreeNode node = stack.peek();
-            stack.pop();
+        flatten(root.right);
+        flatten(root.left);
 
-            if(node.right != null)
-                stack.push(node.right);
-            
-            if(node.left != null)
-                stack.push(node.left);
+        root.right = prev;
+        root.left = null;
 
-            if(!stack.isEmpty()){
-                node.right = stack.peek();
-            }
-
-            node.left = null;    
-        }
+        prev = root;
     }
 }
