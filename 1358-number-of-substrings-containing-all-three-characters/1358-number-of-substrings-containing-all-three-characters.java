@@ -1,6 +1,16 @@
 class Solution {
     // O of N
     // space constant
+
+    // -> example
+    /**
+    init status with all as -1
+    and put their index in array
+    abc -> status = [0,1,2]
+    find the minimum index in status array and do +1
+    for abc its [0,1,2] -> 0+1 = solution as 1
+    for aabc its [1,2,3] -> 1+1 = solution as 2
+     */
     public int numberOfSubstrings(String s) {
         
         int[] status = new int[]{-1,-1,-1};
