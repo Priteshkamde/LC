@@ -14,38 +14,44 @@
  * }
  */
 class Solution {
+    // Tc -> O(N)
+    // Sc -> O(N)
+    // N is number of all nodes in tree
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        if(root == null) 
-            return Collections.emptyList();
-        List<List<Integer>> returnList = new ArrayList<>();
-        List<Integer> tempList;
-        Queue<TreeNode> q = new ArrayDeque<>();
-        boolean reverse = false;
+        if(root == null)
+            return Collections.EMPTY_LIST;
 
+        List<List<Integer>> result = new ArrayList<>();
+        // a level = 0
+        // BFS with Q
+        // CHECK and push Left and Right elements in queue
+        // if level is odd we add 
+        // else we even -> we reverse it
+        // keep adding to result
+        Queue<TreeNode> q = new LinkedList<TreeNode>();
         q.add(root);
-
+        List<Integer> tempResult;
+        int level = 0;
         while(!q.isEmpty()) {
             int size = q.size();
-            tempList = new LinkedList();
-            while(size > 0) {
+            tempResult = new ArrayList<>();
+            for(int i = 0 ; i < size ; i++) {
                 TreeNode node = q.poll();
-                if(reverse) {
-                    tempList.addFirst(node.val);
-                } else {
-                    tempList.add(node.val);
-                }
+                tempResult.add(node.val);
                 if(node.left != null) {
                     q.add(node.left);
                 }
                 if(node.right != null) {
                     q.add(node.right);
                 }
-                size--;
             }
-            returnList.add(tempList);
-            reverse = !reverse;
+            if(level%2 != 0) {
+                Collections.reverse(tempResult);
+            }
+            result.add(tempResult);
+            level+=1;
         }
 
-        return returnList;
+        return result;
     }
 }
