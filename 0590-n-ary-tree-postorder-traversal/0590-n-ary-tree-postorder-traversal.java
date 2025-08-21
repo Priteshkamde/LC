@@ -35,7 +35,5 @@ class Solution {
             postOrder(n, result);
 
         result.add(root.val);
-
     }
-
 }
