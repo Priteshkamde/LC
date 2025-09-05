@@ -1,21 +1,22 @@
 class Solution {
     public void rotate(int[] nums, int k) {
         int N = nums.length;
-        if(k > N)
-            k = k%N;
-        
-        rev(nums, 0, N-1);
-        rev(nums, 0, k-1);
-        rev(nums, k, N-1);
+        if(k > N) {
+            k = k % N;
+        }
+
+        rot(nums, 0, N-1);
+        rot(nums, 0, k-1);
+        rot(nums, k, N-1);
     }
 
-    void rev(int[] nums, int start, int end) {
-        while(start < end) {
-            int temp = nums[start];
-            nums[start] = nums[end];
+    void rot(int[] nums, int st, int end) {
+        while(st < end) {
+            int temp = nums[st];
+            nums[st] = nums[end];
             nums[end] = temp;
 
-            start++;
+            st++;
             end--;
         }
     }
