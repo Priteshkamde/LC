@@ -4,19 +4,17 @@ class Solution {
         Map<String, List<String>> map = new HashMap<>();
 
         for(String s : strs) {
-            String inputString = s;
-            char[] strChar = s.toCharArray();
-            Arrays.sort(strChar);
-            String tempKeyString = new String(strChar);
+            char[] charArr = s.toCharArray();
+            Arrays.sort(charArr);
+            String sortedString = new String(charArr);
 
-            if(map.containsKey(tempKeyString)) {
-                map.get(tempKeyString).add(inputString);
-            } else {
-                map.put(tempKeyString,new ArrayList());
-                map.get(tempKeyString).add(inputString);
+            if(!map.containsKey(sortedString)) {
+                map.put(sortedString, new ArrayList());
             }
+
+            map.get(sortedString).add(s);
         }
 
-        return new ArrayList<>(map.values());
+        return new ArrayList(map.values());
     }
 }
