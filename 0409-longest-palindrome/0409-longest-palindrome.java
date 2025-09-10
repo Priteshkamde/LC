@@ -1,23 +1,26 @@
 class Solution {
     public int longestPalindrome(String s) {
-        HashMap<Character, Integer> map = new HashMap<>();
+        
+        Map<Character, Integer> map = new HashMap<>();
 
         for(char c : s.toCharArray()) {
             map.put(c, map.getOrDefault(c, 0) + 1);
         }
 
-        int len = 0;
-        boolean hasodd = false;
+        int total = 0;
+        boolean hasOddEl = false;
         for(char c : map.keySet()) {
-            int count = map.get(c);
-            if(count % 2 == 0) {
-                len = len + count;
+            int freq = map.get(c);
+
+            if(freq % 2 == 0){
+                total += freq;
             } else {
-                len = len + count - 1; // extract even of the odd
-                hasodd = true; // mark this, so that we can add a single odd in the end
+                total += (freq-1);
+                hasOddEl = true;
             }
         }
 
-        return (hasodd) ? len + 1 : len;
+        return (hasOddEl) ? total + 1 : total;
+
     }
 }
