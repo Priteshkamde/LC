@@ -1,21 +1,22 @@
 class Solution {
     public String longestCommonPrefix(String[] strs) {
-        if(strs.length == 1)
-            return strs[0];
+        String result = "";
 
         Arrays.sort(strs);
-        String first = strs[0];
-        String last = strs[strs.length-1];
 
-        
-        while(last.indexOf(first) != 0) {
-                if (first.isEmpty()) 
-                    return "";
-                else
-                    first = first.substring(0, first.length()-1);
+        String s1 = strs[0];
+        String s2 = strs[strs.length-1];
+
+        int index = 0;
+
+        while(index < s1.length() && index < s2.length()) {
+            if(s1.charAt(index) == s2.charAt(index)) {
+                index++;
+            } else {
+                break;
             }
-        
+        }
 
-        return first;
+        return s1.substring(0, index);
     }
 }
