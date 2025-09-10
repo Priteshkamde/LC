@@ -9,9 +9,11 @@ class Solution {
         for(char c : s.toCharArray())
             ch[c - 'a']++;
 
-        for(char c : t.toCharArray())
-            if(--ch[c-'a'] < 0)
+        for(char c : t.toCharArray()){
+            ch[c-'a']--;
+            if(ch[c-'a'] < 0)
                 return false;
+        }
             
         return true;
     }
