@@ -8,7 +8,7 @@ class Solution {
         }
 
         int total = 0;
-        boolean hasOddEl = false;
+        boolean hasOddElement = false;
         for(char c : map.keySet()) {
             int freq = map.get(c);
 
@@ -16,11 +16,11 @@ class Solution {
                 total += freq;
             } else {
                 total += (freq-1);
-                hasOddEl = true;
+                hasOddElement = true;
             }
         }
 
-        return (hasOddEl) ? total + 1 : total;
+        return (hasOddElement) ? total + 1 : total;
 
     }
 }
