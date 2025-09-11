@@ -5,15 +5,17 @@ class Solution {
             (a, b) -> map.get(b) - map.get(a)
         ); 
 
+
+ // n
         for(char c : s.toCharArray()) {
             map.put(c, map.getOrDefault(c, 0)+1);
         }
-
+// n * log(n)
         for(char c : map.keySet())
             pq.add(c);
 
         StringBuilder sb = new StringBuilder();
-        
+// n * log(n)
         while(!pq.isEmpty()) {
             char ch = pq.poll();
             int freq = map.get(ch);
