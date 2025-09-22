@@ -1,19 +1,18 @@
 class Solution {
     public String largestNumber(int[] nums) {
-        
+
         String[] strs = new String[nums.length];
 
-        for(int i = 0 ; i < nums.length ; i++) {
+        for (int i = 0; i < nums.length; i++)
             strs[i] = String.valueOf(nums[i]);
-        }
 
-        Arrays.sort(strs, (a, b) -> (b+a).compareTo(a+b));
+        Arrays.sort(strs, (a, b) -> (b + a).compareTo(a + b));
 
         String result = String.join("", strs);
 
-        if(result.isEmpty() || result.charAt(0) == '0')
+        if (result.isEmpty() || result.charAt(0) == '0')
             return "0";
 
-        return result;   
+        return result;
     }
 }
